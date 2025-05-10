@@ -32,7 +32,7 @@
         /* Botón de llamada */
         #btnLlamar {
             position: fixed;
-            bottom: 15px;
+            bottom: 80px;
             right: 15px;
             background-color: #28a745;
             color: white;
@@ -51,6 +51,30 @@
 
         #btnLlamar:hover {
             background-color: #218838;
+        }
+
+        /* Botón de carrito */
+        #btnCarrito {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            background-color: #007BFF;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        #btnCarrito i {
+            font-size: 20px;
+        }
+
+        #btnCarrito:hover {
+            background-color: #0056b3;
         }
 
         /* Swiper */
@@ -98,6 +122,7 @@
             padding: 10px;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         .card img {
@@ -117,7 +142,88 @@
             font-size: 0.8rem;
         }
 
-        /* Ventana flotante */
+        /* Botón de agregar */
+        .card button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .card button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Ventana del carrito */
+        .carrito-flotante {
+            position: fixed;
+            bottom: 80px;
+            right: 15px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: none;
+            width: 90%;
+            max-width: 350px;
+        }
+
+        .carrito-flotante h2 {
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .carrito-producto {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .carrito-producto span {
+            font-size: 0.9rem;
+        }
+
+        .carrito-producto button {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .carrito-producto button:hover {
+            background-color: #c82333;
+        }
+
+        .whatsapp-button {
+            background-color: #25D366;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 15px;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #20b358;
+        }
+
         .vendedores-flotante {
             position: fixed;
             top: 50%;
@@ -134,11 +240,6 @@
             max-width: 350px;
         }
 
-        .vendedores-flotante h2 {
-            margin-bottom: 15px;
-            font-size: 1rem;
-        }
-
         .vendedor {
             margin-bottom: 10px;
         }
@@ -149,7 +250,7 @@
             border: none;
             padding: 8px 15px;
             border-radius: 5px;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             cursor: pointer;
         }
 
@@ -167,33 +268,6 @@
             z-index: 999;
             display: none;
         }
-
-        /* Media Queries */
-        @media (min-width: 768px) {
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .swiper {
-                height: 250px;
-            }
-
-            .card h3 {
-                font-size: 1rem;
-            }
-
-            .card p {
-                font-size: 0.9rem;
-            }
-
-            .vendedores-flotante h2 {
-                font-size: 1.2rem;
-            }
-
-            .vendedor button {
-                font-size: 0.9rem;
-            }
-        }
     </style>
 </head>
 
@@ -202,6 +276,9 @@
     <div class="container">
         <!-- Botón de llamada -->
         <button id="btnLlamar"><i class="fas fa-phone"></i></button>
+
+        <!-- Botón de carrito -->
+        <button id="btnCarrito"><i class="fas fa-shopping-cart"></i></button>
 
         <!-- Swiper -->
         <div class="swiper">
@@ -230,29 +307,62 @@
         </div>
     </div>
 
-    <!-- Ventana flotante -->
-    <div class="overlay" id="overlay"></div>
-    <div class="vendedores-flotante" id="vendedoresFlotante">
-        <h2>Vendedores</h2>
+    <!-- Ventana del carrito -->
+    <div class="carrito-flotante" id="carritoFlotante">
+        <h2>Carrito de Compras</h2>
+        <div id="carritoProductos"></div>
+        <button onclick="cerrarCarrito()">Cerrar</button>
+        <button class="whatsapp-button" onclick="mostrarVendedores()">
+            <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+        </button>
+    </div>
+
+    <!-- Ventana de selección de vendedores para llamada -->
+    <div class="vendedores-flotante" id="vendedoresLlamadaFlotante">
+        <h2>Selecciona un vendedor para llamar</h2>
         <div class="vendedor">
             <p>Imelda Rojas</p>
-            <button onclick="iniciarLlamada('945240049')">
-                <i class="fas fa-phone"></i> Llamar
+            <button onclick="iniciarLlamada('958368175')">
+                <i class="fas fa-phone"></i> Llamar a Imelda
             </button>
         </div>
         <div class="vendedor">
             <p>Maritza Mamani</p>
             <button onclick="iniciarLlamada('941104511')">
-                <i class="fas fa-phone"></i> Llamar
+                <i class="fas fa-phone"></i> Llamar a Maritza
             </button>
         </div>
         <div class="vendedor">
             <p>Yaneth Mamani</p>
             <button onclick="iniciarLlamada('915396307')">
-                <i class="fas fa-phone"></i> Llamar
+                <i class="fas fa-phone"></i> Llamar a Yaneth
             </button>
         </div>
-        <button onclick="cerrarVentana()">Cerrar</button>
+        <button onclick="cerrarLlamadaFlotante()">Cerrar</button>
+    </div>
+
+    <!-- Ventana de selección de vendedores para WhatsApp -->
+    <div class="vendedores-flotante" id="vendedoresFlotante">
+        <h2>Selecciona un Vendedor</h2>
+        <div class="vendedor">
+            <p>Imelda Rojas</p>
+            <button onclick="enviarPorWhatsApp('51958368175')">
+                <i class="fab fa-whatsapp"></i> Enviar a Imelda
+            </button>
+        </div>
+        <div class="vendedor">
+            <p>Maritza Mamani</p>
+            <button onclick="enviarPorWhatsApp('51941104511')">
+                <i class="fab fa-whatsapp"></i> Enviar a Maritza
+            </button>
+        </div>
+        <div class="vendedor">
+            <p>Yaneth Mamani</p>
+            <button onclick="enviarPorWhatsApp('51915396307')">
+                <i class="fab fa-whatsapp"></i> Enviar a Yaneth
+            </button>
+        </div>
+        <button onclick="cerrarVendedores()">Cerrar</button>
     </div>
 
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
@@ -272,129 +382,41 @@
 
         // Productos de ejemplo
         const products = [{
-                name: "Detergente Líquido",
+                name: "Detergente Líquido 500",
                 category: "Detergentes",
                 code: "001",
-                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=180&h=180&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=199&h=199&c=7&r=0&o=5&cb=iwc2&pid=1.7"
             },
             {
-                name: "Desinfectante Floral",
+                name: "Desinfectante Floral 900ml",
                 category: "Desinfectantes",
                 code: "002",
-                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=180&h=180&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=199&h=199&c=7&r=0&o=5&cb=iwc2&pid=1.7"
             },
             {
-                name: "Escoba Multiusos",
+                name: "Escoba Multiusos rojo",
                 category: "Accesorios",
                 code: "003",
-                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=180&h=180&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=199&h=199&c=7&r=0&o=5&cb=iwc2&pid=1.7"
             },
             {
-                name: "Lavavajillas Concentrado",
+                name: "Lavavajillas Concentrado liq + eq",
                 category: "Detergentes",
                 code: "004",
-                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=180&h=180&c=7&r=0&o=5&cb=iwc2&pid=1.7"
-            },
-            {
-                name: "Trapeador Absorbente",
-                category: "Accesorios",
-                code: "005",
-                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=180&h=180&c=7&r=0&o=5&cb=iwc2&pid=1.7"
-            },
-            {
-                name: "Limpiador de Vidrios",
-                category: "Limpieza de Vidrios",
-                code: "006",
-                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=180&h=180&c=7&r=0&o=5&cb=iwc2&pid=1.7"
-            },
-            {
-                name: "Cera para Pisos",
-                category: "Ceras",
-                code: "007",
-                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=180&h=180&c=7&r=0&o=5&cb=iwc2&pid=1.7"
-            },
-            {
-                name: "Guantes de Látex",
-                category: "Accesorios",
-                code: "008",
-                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=180&h=180&c=7&r=0&o=5&cb=iwc2&pid=1.7"
-            },
-            {
-                name: "Esponja de Acero",
-                category: "Accesorios",
-                code: "009",
-                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=180&h=180&c=7&r=0&o=5&cb=iwc2&pid=1.7"
-            },
-            {
-                name: "Ambientador de Lavanda",
-                category: "Ambientadores",
-                code: "010",
-                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=180&h=180&c=7&r=0&o=5&cb=iwc2&pid=1.7"
-            },
-            {
-                name: "Detergente en Polvo",
-                category: "Detergentes",
-                code: "011",
-                image: "https://via.placeholder.com/150"
-            },
-            {
-                name: "Desinfectante Limón",
-                category: "Desinfectantes",
-                code: "012",
-                image: "https://via.placeholder.com/150"
-            },
-            {
-                name: "Fibras de Limpieza",
-                category: "Accesorios",
-                code: "013",
-                image: "https://via.placeholder.com/150"
-            },
-            {
-                name: "Limpiador Multiusos",
-                category: "Limpieza General",
-                code: "014",
-                image: "https://via.placeholder.com/150"
-            },
-            {
-                name: "Cepillo para Baño",
-                category: "Accesorios",
-                code: "015",
-                image: "https://via.placeholder.com/150"
-            },
-            {
-                name: "Desengrasante Industrial",
-                category: "Desengrasantes",
-                code: "016",
-                image: "https://via.placeholder.com/150"
-            },
-            {
-                name: "Jabón de Manos Líquido",
-                category: "Higiene Personal",
-                code: "017",
-                image: "https://via.placeholder.com/150"
-            },
-            {
-                name: "Toallas de Papel",
-                category: "Accesorios",
-                code: "018",
-                image: "https://via.placeholder.com/150"
-            },
-            {
-                name: "Quitamanchas Ropa",
-                category: "Detergentes",
-                code: "019",
-                image: "https://via.placeholder.com/150"
-            },
-            {
-                name: "Bolsa de Basura",
-                category: "Bolsas",
-                code: "020",
-                image: "https://via.placeholder.com/150"
+                image: "https://th.bing.com/th/id/OIP.0FA4MMaUfs0KTuU4bjq8GgHaHa?w=199&h=199&c=7&r=0&o=5&cb=iwc2&pid=1.7"
             },
         ];
 
         const catalog = document.getElementById("productCatalog");
         const searchInput = document.getElementById("searchInput");
+        const carritoFlotante = document.getElementById("carritoFlotante");
+        const carritoProductos = document.getElementById("carritoProductos");
+        const btnCarrito = document.getElementById("btnCarrito");
+        const btnLlamar = document.getElementById("btnLlamar");
+        const vendedoresFlotante = document.getElementById("vendedoresFlotante");
+        const vendedoresLlamadaFlotante = document.getElementById("vendedoresLlamadaFlotante");
+
+        let carrito = [];
 
         // Renderizar productos
         function renderProducts(filter = "") {
@@ -422,9 +444,86 @@
             <h3>${product.name}</h3>
             <p>Categoría: ${product.category}</p>
             <p>Código: ${product.code}</p>
+            <button onclick="addToCart('${product.name}', '${product.code}')">+</button>
         `;
                 catalog.appendChild(card);
             });
+        }
+
+        // Evento para agregar producto al carrito
+        function addToCart(productName, productCode) {
+            carrito.push({
+                name: productName,
+                code: productCode
+            });
+            alert(`Producto "${productName}" agregado al carrito.`);
+            renderCarrito();
+        }
+
+        // Renderizar carrito
+        function renderCarrito() {
+            carritoProductos.innerHTML = "";
+            carrito.forEach((product, index) => {
+                const div = document.createElement("div");
+                div.className = "carrito-producto";
+                div.innerHTML = `
+                <span>${product.code} - ${product.name}</span>
+                <button onclick="removeFromCart(${index})">Eliminar</button>
+                `;
+                carritoProductos.appendChild(div);
+            });
+        }
+
+        // Eliminar producto del carrito
+        function removeFromCart(index) {
+            carrito.splice(index, 1);
+            renderCarrito();
+        }
+
+        // Abrir carrito
+        btnCarrito.addEventListener("click", () => {
+            carritoFlotante.style.display = "block";
+        });
+
+        // Cerrar carrito
+        function cerrarCarrito() {
+            carritoFlotante.style.display = "none";
+        }
+
+        // Mostrar lista de vendedores para WhatsApp
+        function mostrarVendedores() {
+            vendedoresFlotante.style.display = "block";
+        }
+
+        // Cerrar lista de vendedores para WhatsApp
+        function cerrarVendedores() {
+            vendedoresFlotante.style.display = "none";
+        }
+
+        // Mostrar lista de vendedores para llamada
+        btnLlamar.addEventListener("click", () => {
+            vendedoresLlamadaFlotante.style.display = "block";
+        });
+
+        // Cerrar lista de vendedores para llamada
+        function cerrarLlamadaFlotante() {
+            vendedoresLlamadaFlotante.style.display = "none";
+        }
+
+        // Enviar por WhatsApp
+        function enviarPorWhatsApp(numeroVendedor) {
+            const mensaje = `Hola, me interesa saber sobre estos productos, vengo de tu catálogo virtual:\n` +
+                carrito.map(product => `${product.code} - ${product.name}`).join('\n');
+            const url = `https://wa.me/${numeroVendedor}?text=${encodeURIComponent(mensaje)}`;
+            window.open(url, "_blank");
+        }
+
+        // Iniciar llamada
+        function iniciarLlamada(telefono) {
+            const confirmacionLlamada = confirm(`¿Deseas iniciar una llamada al número ${telefono}?`);
+            if (confirmacionLlamada) {
+                window.location.href = `tel:${telefono}`;
+            }
         }
 
         // Eventos de búsqueda
@@ -433,28 +532,6 @@
         });
 
         renderProducts();
-
-        // Ventana flotante
-        const btnLlamar = document.getElementById("btnLlamar");
-        const vendedoresFlotante = document.getElementById("vendedoresFlotante");
-        const overlay = document.getElementById("overlay");
-
-        btnLlamar.addEventListener("click", () => {
-            vendedoresFlotante.style.display = "block";
-            overlay.style.display = "block";
-        });
-
-        function iniciarLlamada(telefono) {
-            const confirmacionLlamada = confirm("¿Quiere iniciar la llamada?");
-            if (confirmacionLlamada) {
-                window.location.href = `tel:${telefono}`;
-            }
-        }
-
-        function cerrarVentana() {
-            vendedoresFlotante.style.display = "none";
-            overlay.style.display = "none";
-        }
     </script>
 
 </body>
