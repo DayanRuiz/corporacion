@@ -176,68 +176,60 @@
             font-size: 1.1em;
         }
 
-        .catalogo {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            /* Ajusta el ancho mínimo según necesites */
-            gap: 20px;
-        }
-
-      .item {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Espacio entre imagen e información */
+      .catalogo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
 }
 
-        .item:hover {
-            .item:hover {
+.item {
+    display: flex;
+    flex-direction: column; /* Cambiar a columna para alinear el contenido */
+    align-items: flex-start; /* Asegura que los textos estén alineados a la izquierda */
+    gap: 10px; /* Espacio entre la imagen y los textos */
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
 }
-        }
 
-        .imagen-producto {
-    width: 120px;
-    height: 120px;
+.imagen-producto {
+    width: 100%;
+    height: auto;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
-        .item-info {
-             width: 100%;
-    flex-grow: 1;
-    text-align: left;
+.item-info {
     display: flex;
-    flex-direction: column; /* Cambia a columna para apilar los textos */
-    justify-content: flex-start; /* Alinea los textos al inicio */
-    gap: 5px; /* Añade espacio entre los textos */
-    min-height: 100px;
+    flex-direction: column; /* Asegura que los textos se apilen verticalmente */
+    gap: 5px; /* Espacio entre los textos */
+    text-align: left; /* Alinea los textos a la izquierda */
 }
 
-        .item-info h3 {
-            margin-top: 0;
-            margin-bottom: 5px;
-            .item-info h3 {
+.item-info h3 {
+    margin: 0;
     font-size: 1.2em;
     color: #1e88e5;
 }
-        }
 
-        .item-info p {
-            margin-bottom: 3px;
-            .item-info p {
+.item-info p {
+    margin: 0;
     color: #666;
+    font-size: 0.9em;
 }
-            font-size: 0.9em;
-        }
 
-        .precio {
-            font-weight: bold;
-            color: #28a745;
-            font-size: 1em;
-            margin-top: 8px;
-        }
+.precio {
+    font-weight: bold;
+    color: #28a745;
+    font-size: 1em;
+}
     </style>
 </head>
 
