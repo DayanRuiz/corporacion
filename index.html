@@ -205,14 +205,14 @@
 }
 
         .item-info {
-            flex-grow: 1;
-            text-align: left;
-            display: flex;
-            flex-direction: column;
-            /* ¡Asegúrate de tener esto! */
-            justify-content: center;
-            min-height: 100px;
-        }
+    flex-grow: 1;
+    text-align: left;
+    display: flex;
+    flex-direction: column; /* Cambia a columna para apilar los textos */
+    justify-content: flex-start; /* Alinea los textos al inicio */
+    gap: 5px; /* Añade espacio entre los textos */
+    min-height: 100px;
+}
 
         .item-info h3 {
             margin-top: 0;
