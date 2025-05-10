@@ -161,69 +161,78 @@
         }
 
         /* Ventana del carrito */
-        .carrito-flotante {
-            position: fixed;
-            bottom: 80px;
-            right: 15px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-            display: none;
-            width: 90%;
-            max-width: 350px;
-        }
 
+       
+        .carrito-flotante {
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        right: 10px;
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+        display: none;
+        width: auto;
+        max-width: 400px;
+        margin: auto;
+    }
         .carrito-flotante h2 {
-            margin-bottom: 15px;
-            font-size: 1rem;
-        }
+        margin-bottom: 10px;
+        font-size: 1.2rem;
+        text-align: center;
+    }
 
         .carrito-producto {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        word-break: break-word; /* Evitar desbordes de texto */
+    }
         .carrito-producto span {
             font-size: 0.9rem;
         }
 
-        .carrito-producto button {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            cursor: pointer;
-        }
+       .carrito-producto button {
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        cursor: pointer;
+    }
 
         .carrito-producto button:hover {
-            background-color: #c82333;
-        }
+        background-color: #c82333;
+    }
 
         .whatsapp-button {
-            background-color: #25D366;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            margin-top: 15px;
-        }
+        background-color: #25D366;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        margin-top: 15px;
+        width: 100%; /* Ocupa todo el ancho */
+    }
+
 
         .whatsapp-button:hover {
-            background-color: #20b358;
-        }
-
+        background-color: #20b358;
+    }
+        button {
+        cursor: pointer;
+    }
         .vendedores-flotante {
             position: fixed;
             top: 50%;
@@ -309,13 +318,13 @@
 
     <!-- Ventana del carrito -->
     <div class="carrito-flotante" id="carritoFlotante">
-        <h2>Carrito de Compras</h2>
-        <div id="carritoProductos"></div>
-        <button onclick="cerrarCarrito()">Cerrar</button>
-        <button class="whatsapp-button" onclick="mostrarVendedores()">
-            <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
-        </button>
-    </div>
+    <h2>Carrito de Compras</h2>
+    <div id="carritoProductos"></div>
+    <button onclick="cerrarCarrito()">Cerrar</button>
+    <button class="whatsapp-button" onclick="mostrarVendedores()">
+        <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+    </button>
+</div>
 
     <!-- Ventana de selección de vendedores para llamada -->
     <div class="vendedores-flotante" id="vendedoresLlamadaFlotante">
