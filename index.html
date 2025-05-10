@@ -183,34 +183,26 @@
             gap: 20px;
         }
 
-        .item {
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
-            padding: 15px;
-            display: flex;
-            /* Para colocar imagen e info en línea */
-            align-items: center;
-            /* Centra verticalmente la imagen y la info */
-            transition: transform 0.2s ease-in-out;
-        }
+      .item {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Espacio entre imagen e información */
+}
 
         .item:hover {
-            transform: translateY(-5px);
+            .item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
         }
 
         .imagen-producto {
-            display: block;
-            width: 100px;
-            /* Ajusta este valor según el tamaño deseado para la imagen */
-            height: auto;
-            margin-right: 15px;
-            /* Espacio entre la imagen y la información */
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-            flex-shrink: 0;
-            /* Evita que la imagen se encoja demasiado */
-        }
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+}
 
         .item-info {
             flex-grow: 1;
@@ -225,13 +217,17 @@
         .item-info h3 {
             margin-top: 0;
             margin-bottom: 5px;
-            color: #2c3e50;
-            font-size: 1.1em;
+            .item-info h3 {
+    font-size: 1.2em;
+    color: #1e88e5;
+}
         }
 
         .item-info p {
             margin-bottom: 3px;
-            color: #555;
+            .item-info p {
+    color: #666;
+}
             font-size: 0.9em;
         }
 
