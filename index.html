@@ -7,6 +7,8 @@
     <title>Catálogo de Productos de Limpieza</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <link rel="manifest" href="manifest.json">
+
     <style>
         /* Estilos generales */
         body {
@@ -17,41 +19,45 @@
         }
 
         .container {
-            max-width: 1200px;
-            margin: auto;
+            max-width: 100%;
             padding: 20px;
-            position: relative;
         }
 
         h1 {
             text-align: center;
             color: #333;
             margin-bottom: 20px;
+            font-size: 1.5rem;
         }
 
-        /* Botón de cotización */
-        #btnCotizar {
-            position: absolute;
-            top: 20px;
+        /* Botón de llamada */
+        #btnLlamar {
+            position: fixed;
+            bottom: 20px;
             right: 20px;
-            background-color: #007BFF;
+            background-color: #28a745;
             color: white;
-            padding: 10px 20px;
+            padding: 15px;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 50%;
+            font-size: 18px;
             cursor: pointer;
             z-index: 1000;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
 
-        #btnCotizar:hover {
-            background-color: #0056b3;
+        #btnLlamar i {
+            font-size: 24px;
+        }
+
+        #btnLlamar:hover {
+            background-color: #218838;
         }
 
         /* Swiper */
         .swiper {
             width: 100%;
-            height: 250px;
+            height: 200px;
             margin-bottom: 20px;
         }
 
@@ -65,10 +71,9 @@
         /* Barra de búsqueda */
         .search-bar {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 10px;
             margin-bottom: 20px;
+            padding: 0 10px;
         }
 
         .search-bar input {
@@ -83,15 +88,15 @@
         /* Catálogo */
         .catalog {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
         }
 
         .card {
             background: #fff;
             border: 1px solid #ddd;
             border-radius: 10px;
-            padding: 15px;
+            padding: 10px;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
@@ -105,10 +110,12 @@
         .card h3 {
             margin: 10px 0;
             color: #333;
+            font-size: 1rem;
         }
 
         .card p {
             color: #555;
+            font-size: 0.9rem;
         }
 
         /* Ventana flotante */
@@ -124,6 +131,8 @@
             z-index: 1000;
             display: none;
             text-align: center;
+            width: 90%;
+            max-width: 400px;
         }
 
         .vendedores-flotante h2 {
@@ -135,7 +144,7 @@
         }
 
         .vendedor button {
-            background-color: #28a745;
+            background-color: #007BFF;
             color: white;
             border: none;
             padding: 8px 15px;
@@ -145,7 +154,7 @@
         }
 
         .vendedor button:hover {
-            background-color: #218838;
+            background-color: #0056b3;
         }
 
         .overlay {
@@ -164,8 +173,8 @@
 <body>
 
     <div class="container">
-        <!-- Botón de cotización -->
-        <button id="btnCotizar">Comenzar Cotización</button>
+        <!-- Botón de llamada -->
+        <button id="btnLlamar"><i class="fas fa-phone"></i></button>
 
         <!-- Swiper -->
         <div class="swiper">
@@ -239,25 +248,121 @@
                 name: "Detergente Líquido",
                 category: "Detergentes",
                 code: "001",
-                image: "https://www.bing.com/th/id/OIP.HSIsVenD2iQPjK5vcMg7JwHaHa?w=176&h=185&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
             },
             {
                 name: "Desinfectante Floral",
                 category: "Desinfectantes",
                 code: "002",
-                image: "https://www.bing.com/th/id/OIP.HSIsVenD2iQPjK5vcMg7JwHaHa?w=176&h=185&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
             },
             {
                 name: "Escoba Multiusos",
                 category: "Accesorios",
                 code: "003",
-                image: "https://www.bing.com/th/id/OIP.HSIsVenD2iQPjK5vcMg7JwHaHa?w=176&h=185&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
             },
             {
                 name: "Lavavajillas Concentrado",
                 category: "Detergentes",
                 code: "004",
-                image: "https://www.bing.com/th/id/OIP.HSIsVenD2iQPjK5vcMg7JwHaHa?w=176&h=185&c=8&rs=1&qlt=90&o=6&pid=3.1&rm=2"
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Trapeador Absorbente",
+                category: "Accesorios",
+                code: "005",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Limpiador de Vidrios",
+                category: "Limpieza de Vidrios",
+                code: "006",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Cera para Pisos",
+                category: "Ceras",
+                code: "007",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Guantes de Látex",
+                category: "Accesorios",
+                code: "008",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Esponja de Acero",
+                category: "Accesorios",
+                code: "009",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Ambientador de Lavanda",
+                category: "Ambientadores",
+                code: "010",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Detergente en Polvo",
+                category: "Detergentes",
+                code: "011",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Desinfectante Limón",
+                category: "Desinfectantes",
+                code: "012",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Fibras de Limpieza",
+                category: "Accesorios",
+                code: "013",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Limpiador Multiusos",
+                category: "Limpieza General",
+                code: "014",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Cepillo para Baño",
+                category: "Accesorios",
+                code: "015",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Desengrasante Industrial",
+                category: "Desengrasantes",
+                code: "016",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Jabón de Manos Líquido",
+                category: "Higiene Personal",
+                code: "017",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Toallas de Papel",
+                category: "Accesorios",
+                code: "018",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Quitamanchas Ropa",
+                category: "Detergentes",
+                code: "019",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
+            },
+            {
+                name: "Bolsa de Basura",
+                category: "Bolsas",
+                code: "020",
+                image: "https://th.bing.com/th/id/OIP.-Oup4x6ClTlnPZnVa8NS3wHaHa?w=203&h=203&c=7&r=0&o=5&cb=iwc2&pid=1.7"
             },
         ];
 
@@ -303,11 +408,11 @@
         renderProducts();
 
         // Ventana flotante
-        const btnCotizar = document.getElementById("btnCotizar");
+        const btnLlamar = document.getElementById("btnLlamar");
         const vendedoresFlotante = document.getElementById("vendedoresFlotante");
         const overlay = document.getElementById("overlay");
 
-        btnCotizar.addEventListener("click", () => {
+        btnLlamar.addEventListener("click", () => {
             vendedoresFlotante.style.display = "block";
             overlay.style.display = "block";
         });
