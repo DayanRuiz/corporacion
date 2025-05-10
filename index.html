@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos con Logo y Buscador</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: radial-gradient(circle, #e3f2fd, #90caf9);
+            /* Degradado radial azul claro a más oscuro */
+            color: #333;
+            min-height: 100vh;
+            /* Asegura que el degradado cubra toda la pantalla */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 960px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.95);
+            /* Fondo blanco semi-transparente */
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            position: relative;
+            /* Para posicionar la ventana flotante relativamente */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            justify-content: space-between;
+            /* Espacio entre logo/título y el botón de menú */
+        }
+
+        .logo-titulo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            max-height: 70px;
+            margin-right: 20px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #1976d2;
+            margin: 0;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 1.5em;
+            /* Ajusta el tamaño del icono */
+            color: #28a745;
+            /* Color verde (puedes usar otro tono si prefieres) */
+            transition: transform 0.3s ease-in-out;
+            /* Para una posible animación al hacer clic */
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.1);
+            /* Pequeña animación al pasar el ratón */
+        }
+
+        .menu-icon {
+            width: 30px;
+            height: 3px;
+            background-color: #333;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        .menu-btn.open .menu-icon:nth-child(1) {
+            transform: rotate(-45deg) translate(-7px, 6px);
+        }
+
+        .menu-btn.open .menu-icon:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-btn.open .menu-icon:nth-child(3) {
+            transform: rotate(45deg) translate(-7px, -6px);
+        }
+
+        .vendedores-flotante {
+            position: absolute;
+            top: 60px;
+            /* Ajusta la distancia desde la parte superior */
+            right: 10px;
+            /* Ajusta la distancia desde la derecha */
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
+            font-size: 0.95em;
+            color: #555;
+            z-index: 10;
+            /* Asegura que esté por encima de otros elementos */
+            display: none;
+            /* Oculto por defecto */
+        }
+
+        .vendedores-flotante h2 {
+            font-size: 1.1em;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .vendedor-flotante {
+            display: flex;
+            flex-direction: column;
+            /* Apila los elementos verticalmente */
+            align-items: center;
+            /* Centra los elementos horizontalmente */
+            margin-bottom: 15px;
+            text-align: center;
+            /* Centra el texto dentro de cada elemento */
+        }
+
+        .vendedor-flotante p {
+            margin: 5px 0;
+            /* Pequeño margen arriba y abajo del texto */
+        }
+
+        .telefono-vendedor {
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .vendedor-flotante button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9em;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            /* Esto lo agregamos para separarlo del número */
+        }
+
+        .buscador-container {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .buscador-container input[type="text"] {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1.1em;
+        }
+
+        .catalogo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            /* Ajusta el ancho mínimo según necesites */
+            gap: 20px;
+        }
+
+        .item {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+            padding: 15px;
+            display: flex;
+            /* Para colocar imagen e info en línea */
+            align-items: center;
+            /* Centra verticalmente la imagen y la info */
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .item:hover {
+            transform: translateY(-5px);
+        }
+
+        .imagen-producto {
+            display: block;
+            width: 100px;
+            /* Ajusta este valor según el tamaño deseado para la imagen */
+            height: auto;
+            margin-right: 15px;
+            /* Espacio entre la imagen y la información */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+            /* Evita que la imagen se encoja demasiado */
+        }
+
+        .item-info {
+            flex-grow: 1;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            /* ¡Asegúrate de tener esto! */
+            justify-content: center;
+            min-height: 100px;
+        }
+
+        .item-info h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        .item-info p {
+            margin-bottom: 3px;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        .precio {
+            font-weight: bold;
+            color: #28a745;
+            font-size: 1em;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-titulo">
+                <img src="https://media-hosting.imagekit.io/554f577f056b40b5/LOGO.jpg?Expires=1841434527&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=wOKjNoCAlN2HVzpC~sMEYdRRl0rw13WrPfPYjtylphKF~-r86CDo19YvD9X2pExLBQJHAfXlKC9WfPLE8xcxs~bD8nDDep~~nOPQdHsqq0VmPg7SWzQYmyt9MhAl2ByZ4DxGp5X5cE7b6c0tcWvpw0GfZIGM1iJPEP49LeEyO9slAubWWY0gUUC31IOp8x5hWDds1ITtkVtKWYOAmaQsBHZ-lE6QRQZNGcx3NugCZ5NAuXIb1OawEIL4QdMSVlKYCvIehxg31A1YFvcuvdHfvo7Wmp9--tqDNLNm~F9pZ2pKBueem~mbehL~PUxIFKOQHkemXJa7pcr0M~rDBIgJTw__" alt="Logo de Corporación Mamani" class="logo">
+                <h1>Catálogo de Productos</h1>
+            </div>
+            <button class="menu-btn">
+                <i class="fas fa-users"></i>
+            </button>
+        </div>
+
+        <div class="vendedores-flotante">
+            <h2>Datos de Vendedores</h2>
+            <div class="vendedor-flotante">
+                <p>Imelda Rojas</p>
+                <p class="telefono-vendedor">945240049</p>
+                <button onclick="location.href='tel:945240049'"><i class="fas fa-phone"></i></button>
+            </div>
+            <div class="vendedor-flotante">
+                <p>Maritza Mamani</p>
+                <p class="telefono-vendedor">941104511</p>
+                <button onclick="location.href='tel:941104511'"><i class="fas fa-phone"></i></button>
+            </div>
+            <div class="vendedor-flotante">
+                <p>Yaneth Mamani</p>
+                <p class="telefono-vendedor">915396307</p>
+                <button onclick="location.href='tel:915396307'"><i class="fas fa-phone"></i></button>
+            </div>
+            <div class="vendedor-flotante">
+                <p>Yomar Rojas</p>
+                <p class="telefono-vendedor">987654321</p>
+                <button onclick="location.href='tel:987654321'"><i class="fas fa-phone"></i></button>
+            </div>
+            <div class="vendedor-flotante">
+                <p>Rosa Felicita</p>
+                <p class="telefono-vendedor">912345678</p>
+                <button onclick="location.href='tel:912345678'"><i class="fas fa-phone"></i></button>
+            </div>
+        </div>
+
+        <div class="buscador-container">
+            <input type="text" id="buscador" placeholder="Buscar por dos palabras...">
+        </div>
+        <div class="catalogo" id="catalogo-productos">
+        </div>
+    </div>
+
+    <script>
+        const menuBtn = document.querySelector('.menu-btn');
+        const vendedoresFlotante = document.querySelector('.vendedores-flotante');
+        let menuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            if (!menuOpen) {
+                menuBtn.classList.add('open');
+                vendedoresFlotante.style.display = 'block';
+                menuOpen = true;
+            } else {
+                menuBtn.classList.remove('open');
+                vendedoresFlotante.style.display = 'none';
+                menuOpen = false;
+            }
+        });
+
+        const jsonData = `
+        [
+          {
+            "producto": "ALFYMEDIX GUANTE NITRILO AZUL T-M X 100 UNID",
+            "codigo": "14611",
+            "unidad": "Otros (Rollo) S/",
+            "precio": "6.0000000000",
+            "lado": "izquierda",
+            "imagen": "https://lujorluc.com/wp-content/uploads/Escobon-Hude-Completo-600x600.jpg"
+          },
+          {
+            "producto": "AMIGO DETERGENTE INDUSTRIAL FLORAL *1 KG",
+            "codigo": "13969",
+            "unidad": "Unidades S/",
+            "precio": "13.0000000000",
+            "lado": "derecha",
+            "imagen": "https://lujorluc.com/wp-content/uploads/Escobon-Hude-Completo-600x600.jpg"
+          },
+          {
+            "producto": "AMIGO DETERGENTE INDUSTRIAL FLORAL *15 KG",
+            "codigo": "1381",
+            "unidad": "Otros (Bidones) S/",
+            "precio": "75.0000000000",
+            "lado": "izquierda",
+            "imagen": "URL_DE_LA_IMAGEN_DEL_GUANTE_1.jpg"
+          },
+          {
+            "producto": "AMIGO DETERGENTE INDUSTRIAL LAVANDA *1 KG",
+            "codigo": "14490",
+            "unidad": "Unidades S/",
+            "precio": "6.0000000000",
+            "lado": "derecha",
+            "imagen": "URL_DE_LA_IMAGEN_DEL_GUANTE_1.jpg"
+          },
+          {
+            "producto": "AMIGO FREE ANTIP. (FCO.*400 +SH.200 ML.)",
+            "codigo": "1359",
+            "unidad": "Unidades S/",
+            "precio": "14.5000000000",
+            "lado": "izquierda",
+            "imagen": "URL_DE_LA_IMAGEN_DEL_GUANTE_1.jpg"
+          },
+          {
+            "producto": "AMIGO FREE ANTIP. SP 130 ML.",
+            "codigo": "13991",
+            "unidad": "Unidades S/",
+            "precio": "8.0000000000",
+            "lado": "derecha",
+            "imagen": "URL_DE_LA_IMAGEN_DEL_GUANTE_1.jpg"
+          },
+          {
+            "producto": "AMIGO MAX SHAMPOO DOY PACK *1000ML",
+            "codigo": "AMI04",
+            "unidad": "Unidades S/",
+            "precio": "13.5000000000",
+            "lado": "izquierda",
+            "imagen": "URL_DE_LA_IMAGEN_DEL_GUANTE_1.jpg"
+          },
+          {
+            "producto": "AMIGO MAX SHAMPOO DOY PACK *150ML",
+            "codigo": "AMIG150",
+            "unidad": "Unidades S/",
+            "precio": "3.0000000000",
+            "lado": "derecha",
+            "imagen": "URL_DE_LA_IMAGEN_DEL_GUANTE_1.jpg"
+          },
+          {
+            "producto": "AMIGO MAX SHAMPOO DOY PACK *250ML",
+            "codigo": "AMI02",
+            "unidad": "Unidades S/",
+            "precio": "5.8000000000",
+            "lado": "izquierda",
+            "imagen": "URL_DE_LA_IMAGEN_DEL_GUANTE_1.jpg"
+          },
+          {
+            "producto": "AMIGO MAX SHAMPOO DOY PACK *500ML",
+            "codigo": "AMI03",
+            "unidad": "Unidades S/",
+            "precio": "8.0000000000",
+            "lado": "derecha",
+            "imagen": "URL_DE_LA_IMAGEN_DEL_GUANTE_1.jpg"
+          },
+          {
+            "producto": "AMIGO MAX SHAMPOO FCO*300ML",
+            "codigo": "AM1254",
+            "unidad": "Unidades S/",
+            "precio": "7.5000000000",
+            "lado": "izquierda",
+            "imagen": "URL_DE_LA_IMAGEN_DEL_GUANTE_1.jpg"
+          },
+          {
+            "producto": "AMIGO MAXIMO SHAMPOO ANTIP. FCO.*240ML",
+            "codigo": "1361",
+            "unidad": "Unidades S/",
+            "precio": "8.0000000000",
+            "lado": "derecha",
+            "imagen": "URL_DE_LA_IMAGEN_DEL_GUANTE_1.jpg"
+          }
+        ]
+        `;
+
+        const productos = JSON.parse(jsonData);
+        const catalogoDiv = document.getElementById('catalogo-productos');
+        const buscadorInput = document.getElementById('buscador');
+
+        function mostrarProductos(listaProductos) {
+            catalogoDiv.innerHTML = '';
+            if (listaProductos.length === 0) {
+                const mensajeNoEncontrado = document.createElement('div');
+                mensajeNoEncontrado.classList.add('no-encontrado');
+                mensajeNoEncontrado.textContent = 'No se encontró el producto, pruebe con otro.';
+                catalogoDiv.appendChild(mensajeNoEncontrado);
+            } else {
+                listaProductos.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.classList.add('item');
+
+                    itemDiv.innerHTML = `
+                <img src="${item.imagen}" alt="${item.producto}" class="imagen-producto">
+                <h3>${item.producto}</h3>
+                <p>Código: ${item.codigo}</p>
+                <p>Unidad: ${item.unidad}</p>
+                <p class="precio">Precio: S/ ${item.precio}</p>
+            `;
+
+                    catalogoDiv.appendChild(itemDiv);
+                });
+            }
+        }
+
+        function filtrarProductos(textoBusqueda) {
+            const palabrasBusqueda = textoBusqueda.toLowerCase().split(' ').filter(palabra => palabra.length > 0);
+
+            const productosFiltrados = productos.filter(item => {
+                const nombreProducto = item.producto.toLowerCase();
+                return palabrasBusqueda.every(palabra => nombreProducto.includes(palabra));
+            });
+
+            mostrarProductos(productosFiltrados);
+        }
+
+        mostrarProductos(productos);
+
+        buscadorInput.addEventListener('input', function() {
+            filtrarProductos(this.value);
+        });
+    </script>
+</body>
+
+</html>
