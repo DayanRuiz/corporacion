@@ -382,17 +382,21 @@
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script>
         // Inicializar Swiper
-        const swiper = new Swiper('.swiper', {
-            loop: true,
-            pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-            },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-        });
+         const swiper = new Swiper('.swiper', {
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        autoplay: {
+            delay: 5000, // 5000ms = 5 segundos
+            disableOnInteraction: false, // Mantener autoplay incluso si el usuario interactúa
+        },
+    });
 
         // Productos de ejemplo
         const products = [{
