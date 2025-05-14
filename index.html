@@ -5971,12 +5971,16 @@
             filteredProducts.forEach(product => {
                 const card = document.createElement("div");
                 card.className = "card";
+
+                // Asegurarse de que el nombre tenga solo espacios normales
+                const cleanName = product.name.replace(/\s+/g, " ").trim();
+                
                 card.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>Categoría: ${product.category}</p>
-            <p>Código: ${product.code}</p>
-            <button onclick="addToCart('${product.name}', '${product.code}')">+</button>
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${cleanName}</h3>
+                    <p>Categoría: ${product.category}</p>
+                    <p>Código: ${product.code}</p>
+                    <button onclick="addToCart('${product.name}', '${product.code}')">+</button>
         `;
                 catalog.appendChild(card);
             });
