@@ -205,6 +205,12 @@
             /* Evitar desbordes de texto */
         }
 
+        #carritoProductos {
+            max-height: 300px; /* Limita la altura máxima del contenedor */
+            overflow-y: auto;  /* Habilita el scroll vertical */
+            padding-right: 5px; /* Espacio para el contenido */
+        }
+
         .carrito-producto span {
             font-size: 0.9rem;
         }
@@ -6022,6 +6028,15 @@
 
         // Evento para agregar producto al carrito
         function addToCart(productName, productCode) {
+
+            // Verificar si el producto ya existe en el carrito
+            const productExists = carrito.some(product => product.code === productCode);
+            if (productExists) {
+                showCustomAlert(`El producto "${productName}" ya está en el carrito.`);
+                return; // Detener la ejecución si ya existe
+            }
+            
+             // Agregar el producto al carrito
             carrito.push({
                 name: productName,
                 code: productCode
