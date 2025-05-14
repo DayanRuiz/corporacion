@@ -293,12 +293,45 @@
             z-index: 999;
             display: none;
         }
+        /* Estilo para la notificación personalizada */
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #007BFF;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            font-size: 0.9rem;
+            z-index: 1000;
+            display: none; /* Ocultar por defecto */
+            animation: fadeOut 3s forwards; /* Desaparecer automáticamente */
+        }
+        
+        /* Animación para desaparecer automáticamente */
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        
     </style>
 </head>
 
 <body>
 
     <div class="container">
+        
+        <!-- Contenedor de notificación personalizada -->
+        <div id="customAlert" class="custom-alert"></div>
+        
         <!-- Botón de llamada -->
         <button id="btnLlamar"><i class="fas fa-phone"></i></button>
 
@@ -5993,8 +6026,21 @@
                 name: productName,
                 code: productCode
             });
-            alert(`Producto "${productName}" agregado al carrito.`);
-            renderCarrito();
+            // Mostrar la notificación personalizada
+                showCustomAlert("Producto '${product.name}' agregado al carrito.");
+                renderCarrito();
+        }
+
+        // Mostrar la notificación personalizada
+        function showCustomAlert(message) {
+            const alertBox = document.getElementById("customAlert");
+            alertBox.textContent = message;
+            alertBox.style.display = "block";
+        
+            // Ocultar la notificación después de 3 segundos
+            setTimeout(() => {
+                alertBox.style.display = "none";
+            }, 3000); // 3000 ms = 3 segundos
         }
 
         // Renderizar carrito
