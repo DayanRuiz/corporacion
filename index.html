@@ -124,7 +124,11 @@
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             position: relative;
+            width: 100%;           /* Ocupa el espacio disponible */
+            box-sizing: border-box; /* Incluye padding y border en el tamaño total */
+            overflow: hidden;      /* Oculta contenido que se desborde */
         }
+
 
         .card img {
             max-width: 100%;
@@ -133,10 +137,13 @@
         }
 
         .card h3 {
-            margin: 10px;
+            margin: 10px 0; /* Solo arriba y abajo */
             color: #333;
-            font-size: 1.2rem;
+            font-size: 0.9rem;
+            word-wrap: break-word;     /* Rompe palabras largas */
+            overflow-wrap: break-word; /* Alternativa moderna */
         }
+
 
         .card p {
             color: #555;
