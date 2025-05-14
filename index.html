@@ -5988,6 +5988,41 @@
         const vendedoresFlotante = document.getElementById("vendedoresFlotante");
         const vendedoresLlamadaFlotante = document.getElementById("vendedoresLlamadaFlotante");
 
+         function renderProducts(filter = "") {
+            catalog.innerHTML = ""; // Limpiar catálogo
+
+            const searchTerms = filter.toLowerCase().split(" ").filter(term => term.trim() !== "");
+            const filteredProducts = products.filter(product => {
+                return searchTerms.every(term =>
+                    product.name.toLowerCase().includes(term) ||
+                    product.category.toLowerCase().includes(term) ||
+                    product.code.includes(term)
+                );
+            });
+
+            if (filteredProducts.length === 0) {
+                catalog.innerHTML = "<p>No se encontraron productos.</p>";
+                return;
+            }
+
+            filteredProducts.forEach(product => {
+                const card = document.createElement("div");
+                card.className = "card";
+
+                // Asegurarse de que el nombre tenga solo espacios normales
+                const cleanName = product.name.replace(/\s+/g, " ").trim();
+                
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}">
+                    <h3>${cleanName}</h3>
+                    <p>Categoría: ${product.category}</p>
+                    <p>Código: ${product.code}</p>
+                    <button onclick="addToCart('${product.name}', '${product.code}')">+</button>
+        `;
+                catalog.appendChild(card);
+            });
+        }
+
         // Inicializar carrito desde localStorage o vacío
         let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
         
