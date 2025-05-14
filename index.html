@@ -219,10 +219,15 @@
             background-color: #dc3545;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 5px 10px; /* Ajusta el espacio interno */
             border-radius: 5px;
             font-size: 0.8rem;
             cursor: pointer;
+            width: auto; /* Permite que el ancho se ajuste al contenido */
+            min-width: 50px; /* Establece un ancho mínimo si es necesario */
+            white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+            text-align: center; /* Centra el texto dentro del botón */
+            box-sizing: border-box; /* Incluye el padding y el borde dentro del ancho total */
         }
 
         .carrito-producto button:hover {
