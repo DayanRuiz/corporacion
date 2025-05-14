@@ -5,16 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo de Productos de Limpieza</title>
-
-    <script>
-        // Desactivar el gesto de pull-to-refresh en móviles
-        document.addEventListener('touchmove', function(event) {
-            if (event.touches.length > 1) {
-                event.preventDefault();
-            }
-        }, { passive: false });
-    </script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
@@ -5998,47 +5988,14 @@
         const vendedoresFlotante = document.getElementById("vendedoresFlotante");
         const vendedoresLlamadaFlotante = document.getElementById("vendedoresLlamadaFlotante");
 
-        let carrito = [];
-
-        // Renderizar productos
-        function renderProducts(filter = "") {
-            catalog.innerHTML = ""; // Limpiar catálogo
-
-            const searchTerms = filter.toLowerCase().split(" ").filter(term => term.trim() !== "");
-            const filteredProducts = products.filter(product => {
-                return searchTerms.every(term =>
-                    product.name.toLowerCase().includes(term) ||
-                    product.category.toLowerCase().includes(term) ||
-                    product.code.includes(term)
-                );
-            });
-
-            if (filteredProducts.length === 0) {
-                catalog.innerHTML = "<p>No se encontraron productos.</p>";
-                return;
-            }
-
-            filteredProducts.forEach(product => {
-                const card = document.createElement("div");
-                card.className = "card";
-
-                // Asegurarse de que el nombre tenga solo espacios normales
-                const cleanName = product.name.replace(/\s+/g, " ").trim();
-                
-                card.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}">
-                    <h3>${cleanName}</h3>
-                    <p>Categoría: ${product.category}</p>
-                    <p>Código: ${product.code}</p>
-                    <button onclick="addToCart('${product.name}', '${product.code}')">+</button>
-        `;
-                catalog.appendChild(card);
-            });
-        }
-
+        // Inicializar carrito desde localStorage o vacío
+        let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        
+        // Renderizar carrito al cargar la página
+        document.addEventListener("DOMContentLoaded", renderCarrito);
+        
         // Evento para agregar producto al carrito
         function addToCart(productName, productCode) {
-
             // Verificar si el producto ya existe en el carrito
             const productExists = carrito.some(product => product.code === productCode);
             if (productExists) {
@@ -6046,16 +6003,20 @@
                 return; // Detener la ejecución si ya existe
             }
             
-             // Agregar el producto al carrito
+            // Agregar el producto al carrito
             carrito.push({
                 name: productName,
                 code: productCode
             });
+        
+            // Guardar el carrito en localStorage
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+        
             // Mostrar la notificación personalizada
-                showCustomAlert(`Producto "${productName}" agregado al carrito.`);
-                renderCarrito();
+            showCustomAlert(`Producto "${productName}" agregado al carrito.`);
+            renderCarrito();
         }
-
+        
         // Mostrar la notificación personalizada
         function showCustomAlert(message) {
             const alertBox = document.getElementById("customAlert");
@@ -6067,7 +6028,7 @@
                 alertBox.style.display = "none";
             }, 5000); // 5000 ms = 5 segundos
         }
-
+        
         // Renderizar carrito
         function renderCarrito() {
             carritoProductos.innerHTML = "";
@@ -6075,24 +6036,28 @@
                 const div = document.createElement("div");
                 div.className = "carrito-producto";
                 div.innerHTML = `
-                <span>${product.code} - ${product.name}</span>
-                <button onclick="removeFromCart(${index})">Eliminar</button>
+                    <span>${product.code} - ${product.name}</span>
+                    <button onclick="removeFromCart(${index})">Eliminar</button>
                 `;
                 carritoProductos.appendChild(div);
             });
         }
-
+        
         // Eliminar producto del carrito
         function removeFromCart(index) {
             carrito.splice(index, 1);
+        
+            // Guardar el carrito actualizado en localStorage
+            localStorage.setItem("carrito", JSON.stringify(carrito));
+        
             renderCarrito();
         }
-
+        
         // Abrir carrito
         btnCarrito.addEventListener("click", () => {
             carritoFlotante.style.display = "block";
         });
-
+        
         // Cerrar carrito
         function cerrarCarrito() {
             carritoFlotante.style.display = "none";
