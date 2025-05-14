@@ -6027,7 +6027,7 @@
                 code: productCode
             });
             // Mostrar la notificación personalizada
-                showCustomAlert("Producto ${product.name} agregado al carrito.");
+                showCustomAlert("Producto "${productName}" agregado al carrito.");
                 renderCarrito();
         }
 
@@ -6037,10 +6037,10 @@
             alertBox.textContent = message;
             alertBox.style.display = "block";
         
-            // Ocultar la notificación después de 3 segundos
+            // Ocultar la notificación después de 5 segundos
             setTimeout(() => {
                 alertBox.style.display = "none";
-            }, 3000); // 3000 ms = 3 segundos
+            }, 5000); // 5000 ms = 5 segundos
         }
 
         // Renderizar carrito
