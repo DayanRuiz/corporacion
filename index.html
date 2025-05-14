@@ -140,8 +140,9 @@
             margin: 10px 0; /* Solo arriba y abajo */
             color: #333;
             font-size: 0.9rem;
-            word-wrap: break-word;     /* Rompe palabras largas */
-            overflow-wrap: break-word; /* Alternativa moderna */
+            white-space: normal;           /* Permite saltos de línea normales */
+            overflow-wrap: break-word;     /* Rompe la línea en espacios si es necesario */
+            word-break: normal;            /* No rompe palabras a la mitad */
         }
 
 
