@@ -136,14 +136,17 @@
             border-radius: 10px;
         }
 
+
         .card h3 {
-            margin: 10px 0; /* Solo arriba y abajo */
+            margin: 10px 0;                  /* Solo arriba y abajo */
             color: #333;
             font-size: 0.9rem;
-            white-space: normal;         /* Permite saltos de línea */
-            word-break: normal;        /* Mantiene las palabras enteras */
-            overflow-wrap: normal;     /* Rompe la línea en espacios si es necesario */
+            white-space: normal;             /* Permite saltos de línea normales */
+            word-wrap: break-word;           /* Rompe las palabras largas si no caben */
+            overflow-wrap: break-word;       /* Alternativa moderna para hacer lo mismo */
+            word-break: normal;              /* Evita cortar las palabras a la mitad */
         }
+
 
 
         .card p {
