@@ -307,7 +307,7 @@
             font-size: 0.9rem;
             z-index: 1000;
             display: none; /* Ocultar por defecto */
-            animation: fadeOut 3s forwards; /* Desaparecer automáticamente */
+            animation: fadeOut 5s forwards; /* Desaparecer automáticamente */
         }
         
         /* Animación para desaparecer automáticamente */
@@ -6027,7 +6027,7 @@
                 code: productCode
             });
             // Mostrar la notificación personalizada
-                showCustomAlert("Producto '${product.name}' agregado al carrito.");
+                showCustomAlert("Producto ${product.name} agregado al carrito.");
                 renderCarrito();
         }
 
