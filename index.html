@@ -55,7 +55,7 @@
 
         /* Botón de carrito */
         #btnCarrito {
-            position: fixed;
+            position: relative; /* Para posicionar el contador relativo al botón */
             bottom: 15px;
             right: 15px;
             background-color: #007BFF;
@@ -75,6 +75,20 @@
 
         #btnCarrito:hover {
             background-color: #0056b3;
+        }
+        
+        #cart-counter {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: none; /* Ocultar por defecto */
+            z-index: 1000; /* Asegurarse de que esté encima del botón */
         }
 
         /* Swiper */
@@ -242,6 +256,28 @@
             background-color: #c82333;
         }
 
+        .custom-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #007BFF;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: Arial, sans-serif;
+            font-size: 0.9rem;
+            z-index: 1000;
+            display: none; /* Ocultar por defecto */
+            opacity: 0; /* Para animación */
+            transition: opacity 0.5s ease-in-out; /* Animación suave */
+        }
+
+        .custom-alert.show {
+            display: block;
+            opacity: 1; /* Mostrar con transición */
+        }
+
         .whatsapp-button {
             background-color: #25D366;
             color: white;
@@ -355,7 +391,10 @@
         <button id="btnLlamar"><i class="fas fa-phone"></i></button>
 
         <!-- Botón de carrito -->
-        <button id="btnCarrito"><i class="fas fa-shopping-cart"></i></button>
+        <button id="btnCarrito">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cart-counter" style="display:none;">0</span>
+        </button>
 
         <!-- Swiper -->
         <div class="swiper">
@@ -393,6 +432,8 @@
             <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
         </button>
     </div>
+
+    <div id="overlay" class="overlay" onclick="cerrarCarrito()"></div>
 
     <!-- Ventana de selección de vendedores para llamada -->
     <div class="vendedores-flotante" id="vendedoresLlamadaFlotante">
@@ -6002,7 +6043,13 @@
         const vendedoresLlamadaFlotante = document.getElementById("vendedoresLlamadaFlotante");
 
          function renderProducts(filter = "") {
-            catalog.innerHTML = ""; // Limpiar catálogo
+            card.innerHTML = `
+                <img src="${product.image !== "null" ? product.image : "ruta/a/imagen-predeterminada.jpg"}" alt="${product.name}">
+                <h3>${cleanName}</h3>
+                <p>Categoría: ${product.category}</p>
+                <p>Código: ${product.code}</p>
+                <button onclick="addToCart('${product.name}', '${product.code}')">+</button>
+            `;
 
             const searchTerms = filter.toLowerCase().split(" ").filter(term => term.trim() !== "");
             const filteredProducts = products.filter(product => {
@@ -6036,14 +6083,31 @@
             });
         }
 
+        // Inicializar el contador del carrito
+        let cartCount = 0;
+
+        // Función para actualizar el contador en el carrito
+        function updateCartCounter() {
+            const counterElement = document.getElementById('cart-counter');
+            counterElement.textContent = cartCount;
+            counterElement.style.display = cartCount > 0 ? 'inline' : 'none'; // Muestra solo si hay items
+        }
+
         // Inicializar carrito desde localStorage o vacío
         let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
         
         // Renderizar carrito al cargar la página
-        document.addEventListener("DOMContentLoaded", renderCarrito);
+        document.addEventListener("DOMContentLoaded", () => {
+            cartCount = carrito.length; // Inicializar el contador con el número de productos en el carrito
+            updateCartCounter(); // Actualizar la interfaz
+            renderCarrito(); // Mostrar los productos del carrito
+        });
         
         // Evento para agregar producto al carrito
         function addToCart(productName, productCode) {
+
+            
+            
             // Verificar si el producto ya existe en el carrito
             const productExists = carrito.some(product => product.code === productCode);
             if (productExists) {
@@ -6057,24 +6121,28 @@
                 code: productCode
             });
         
-            // Guardar el carrito en localStorage
-            localStorage.setItem("carrito", JSON.stringify(carrito));
+            // Guardar el carrito en localStorage sin duplicados
+            localStorage.setItem("carrito", JSON.stringify([...new Set(carrito)]));
         
             // Mostrar la notificación personalizada
             showCustomAlert(`Producto "${productName}" agregado al carrito.`);
             renderCarrito();
+
+            cartCount = carrito.length; // Sincronizar con el tamaño actual del carrito
+            updateCartCounter();
         }
         
+        // Mostrar la notificación personalizada
         // Mostrar la notificación personalizada
         function showCustomAlert(message) {
             const alertBox = document.getElementById("customAlert");
             alertBox.textContent = message;
-            alertBox.style.display = "block";
+            alertBox.classList.add("show");
         
             // Ocultar la notificación después de 5 segundos
             setTimeout(() => {
-                alertBox.style.display = "none";
-            }, 5000); // 5000 ms = 5 segundos
+                alertBox.classList.remove("show");
+            }, 5000);
         }
         
         // Renderizar carrito
@@ -6104,11 +6172,12 @@
         // Abrir carrito
         btnCarrito.addEventListener("click", () => {
             carritoFlotante.style.display = "block";
+            document.getElementById("overlay").style.display = "block";
         });
         
-        // Cerrar carrito
         function cerrarCarrito() {
             carritoFlotante.style.display = "none";
+            document.getElementById("overlay").style.display = "none";
         }
 
         // Mostrar lista de vendedores para WhatsApp
