@@ -197,12 +197,12 @@
 
         .carrito-producto {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Distribuye espacio entre elementos */
             align-items: center;
             font-size: 0.9rem;
             margin-bottom: 10px;
-            word-break: break-word;
-            /* Evitar desbordes de texto */
+            word-break: break-word; /* Evitar desbordes de texto */
+            gap: 10px; /* Espacio entre elementos */
         }
 
         #carritoProductos {
@@ -212,22 +212,25 @@
         }
 
         .carrito-producto span {
+            flex: 1; /* Permite que el texto ocupe el espacio disponible */
             font-size: 0.9rem;
+            overflow: hidden; /* Oculta texto desbordado */
+            text-overflow: ellipsis; /* Agrega puntos suspensivos si el texto es muy largo */
+            white-space: nowrap; /* Evita que el texto haga un salto de línea */
         }
 
         .carrito-producto button {
             background-color: #dc3545;
             color: white;
             border: none;
-            padding: 5px 10px; /* Ajusta el espacio interno */
+            padding: 5px 10px;
             border-radius: 5px;
             font-size: 0.8rem;
             cursor: pointer;
-            width: auto; /* Permite que el ancho se ajuste al contenido */
-            min-width: 50px; /* Establece un ancho mínimo si es necesario */
-            white-space: nowrap; /* Evita que el texto se divida en varias líneas */
-            text-align: center; /* Centra el texto dentro del botón */
-            box-sizing: border-box; /* Incluye el padding y el borde dentro del ancho total */
+            min-width: 50px;
+            white-space: nowrap; /* Evita el salto de línea en el botón */
+            text-align: center;
+            box-sizing: border-box;
         }
 
         .carrito-producto button:hover {
