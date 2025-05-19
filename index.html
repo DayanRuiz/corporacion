@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nosotros - CORPORACIÓN MAMANI</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="images/logo.ico">
+
+
+  <style>
+    /* Estilo básico para mostrar solo la sección activa */
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav id="main-nav">
+    <div class="nav-content">
+      <img src="images/logo.ico" alt="Logo Corporación Mamani" class="logo" />
+      <div class="nav-links">
+        <a href="index.html">Nosotros</a>
+        <a href="productos.html">Productos</a>
+        <a href="contacto.html">Contacto</a>
+
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <section id="nosotros" class="section active">
+
+      <!-- datos-->
+      <div class="section-info">
+        <h2>CORPORACIÓN MAMANI</h2>
+        <p>Somos una empresa dedicada a la fabricación y distribución de productos de limpieza de alta calidad para
+          hogares y empresas.</p>
+
+        <div class="image-row">
+          <img src="images/staff.jpeg" alt="Nuestro equipo de trabajo" />
+          <img src="images/warehouse.png" alt="Vista de nuestros almacenes" />
+        </div>
+
+        <h3>Visión</h3>
+        <p>Ser reconocidos como líderes en el mercado de productos de limpieza, ofreciendo soluciones sostenibles e
+          innovadoras.</p>
+
+        <h3>Misión</h3>
+        <p>Brindar productos de limpieza efectivos y seguros, comprometidos con el medio ambiente y la satisfacción de
+          nuestros clientes.</p>
+
+        <div class="image-row">
+          <img src="images/vendedores.jpeg" alt="Colaboradores trabajando en equipo" />
+          <img src="images/tienda.jpg" alt="Estanterías con productos de nuestras marcas" />
+        </div>
+
+        <h3>Nuestras Marcas</h3>
+      </div>
+
+
+
+      
+
+      <!-- marcas-->
+
+      <div class="carousel section-info" mask>
+
+        <article>
+          <img src="images/peluche.png" alt="">
+          <div>
+            <h2>PELUCHE</h2>
+            <p>Escobas, Guantes.</p>
+          </div>
+        </article>
+
+        <article>
+          <img src="images/pegafin.png" alt="">
+          <div>
+            <h2>PEGAFIN</h2>
+            <p>Insecticidas</p>
+          </div>
+        </article>
+
+        <article>
+          <img src="images/mary.png" alt="">
+          <div>
+            <h2>DOÑA MARY</h2>
+            <p>Paños Multiusos</p>
+          </div>
+        </article>
+
+
+      </div>
+
+    </section>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Productos de Limpieza. Todos los derechos reservados.</p>
+    <div class="footer-links">
+      <a href="https://facebook.com" target="_blank">Facebook</a> |
+      <a href="https://instagram.com" target="_blank">Instagram</a> |
+      <a href="https://twitter.com" target="_blank">Twitter</a>
+    </div>
+  </footer>
+
+  <script>
+    function showSection(id) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => {
+        if (section.id === id) {
+          section.classList.add('active');
+        } else {
+          section.classList.remove('active');
+        }
+      });
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CORPORACIÓN MAMANI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav id="main-nav" role="navigation" aria-label="Menú principal">
+    <div class="nav-content">
+      <img src="images/logo.ico" alt="Logo Corporación Mamani" class="logo" />
+      <div class="nav-links">
+        <a href="#" onclick="event.preventDefault(); showSection('nosotros');">Nosotros</a>
+        <a href="#" onclick="event.preventDefault(); showSection('productos');">Productos</a>
+        <a href="#" onclick="event.preventDefault(); showSection('contacto');">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Sección Nosotros -->
+    <section id="nosotros" class="section active">
+      <h2>¿Quiénes Somos?</h2>
+      <p>Somos una empresa dedicada a la fabricación y distribución de productos de limpieza de alta calidad para hogares y empresas.</p>
+      <div class="image-row">
+        <img src="images/staff.jpg" alt="Nuestro equipo de trabajo" />
+        <img src="images/warehouse.jpg" alt="Vista de nuestros almacenes" />
+      </div>
+      <h3>Visión</h3>
+      <p>Ser reconocidos como líderes en el mercado de productos de limpieza, ofreciendo soluciones sostenibles e innovadoras.</p>
+      <h3>Misión</h3>
+      <p>Brindar productos de limpieza efectivos y seguros, comprometidos con el medio ambiente y la satisfacción de nuestros clientes.</p>
+      <div class="image-row">
+        <img src="images/staff.jpg" alt="Colaboradores trabajando en equipo" />
+        <img src="images/warehouse.jpg" alt="Estanterías con productos de nuestras marcas" />
+      </div>
+      <h3>Nuestras Marcas</h3>
+      <p>Contamos con una amplia gama de marcas reconocidas por su calidad y efectividad.</p>
+    </section>
+
+    <!-- Sección Productos -->
+    <section id="productos" class="section">
+      <h2>Nuestros Productos</h2>
+      <p>Explora nuestra gama de productos de limpieza diseñados para cada necesidad:</p>
+      <div class="cards">
+        <div class="card"><h3>Detergentes</h3><p>Detergentes líquidos y en polvo para ropa, pisos y superficies.</p></div>
+        <div class="card"><h3>Desinfectantes</h3><p>Limpiadores multiusos para baños, cocinas y áreas comunes.</p></div>
+        <div class="card"><h3>Productos Ecológicos</h3><p>Fórmulas biodegradables amigables con el medio ambiente.</p></div>
+        <div class="card"><h3>Accesorios</h3><p>Fibras, paños, escobas y otros utensilios de limpieza.</p></div>
+      </div>
+      <div class="image-row"><img src="images/products.jpg" alt="Gama de productos de limpieza en exhibición" /></div>
+    </section>
+
+    <!-- Sección Contacto -->
+    <section id="contacto" class="section">
+      <h2>Contáctanos</h2>
+      <p>Estamos disponibles para ayudarte. Puedes comunicarte con nosotros a través de los siguientes medios:</p>
+      <ul>
+        <li>📞 Teléfono: <a href="tel:1234567890">123-456-7890</a></li>
+        <li>📧 Email: <a href="mailto:contacto@productoslimpieza.com">contacto@productoslimpieza.com</a></li>
+        <li>💬 WhatsApp: <a href="https://wa.me/521234567890" target="_blank">Escríbenos por WhatsApp</a></li>
+      </ul>
+    </section>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Productos de Limpieza. Todos los derechos reservados.</p>
+    <div class="footer-links">
+      <a href="https://facebook.com" target="_blank">Facebook</a> |
+      <a href="https://instagram.com" target="_blank">Instagram</a> |
+      <a href="https://twitter.com" target="_blank">Twitter</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

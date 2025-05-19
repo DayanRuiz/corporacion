@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Productos - CORPORACIÓN MAMANI</title>
+  <link rel="stylesheet" href="style.css" />
+
+
+  <!-- LINK CATALOGO -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+  <link rel="icon" href="images/logo.ico">
+
+
+
+</head>
+
+<body>
+
+  <nav id="main-nav">
+    <div class="nav-content">
+      <img src="images/logo.ico" alt="Logo Corporación Mamani" class="logo" />
+      <div class="nav-links">
+        <a href="index.html">Nosotros</a>
+        <a href="productos.html">Productos</a>
+        <a href="contacto.html">Contacto</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    <section class="section active">
+
+      <!-- PRODUCTOS -->
+
+      <!-- Contenedor de notificación personalizada -->
+      <div id="customAlert" class="custom-alert"></div>
+
+      <!-- Botón de llamada -->
+      <button id="btnLlamar"><i class="fas fa-phone"></i></button>
+
+      <!-- Botón de carrito -->
+      <button id="btnCarrito"><i class="fas fa-shopping-cart"></i></button>
+      <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+      <!-- Swiper -->
+      <div class="swiper section-info">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="https://i.ibb.co/jkR47j9W/one.png"></div>
+          <div class="swiper-slide"><img src="https://i.ibb.co/hRKGzFMX/two.png" alt="Promoción 2"></div>
+          <div class="swiper-slide"><img src="https://i.ibb.co/d4swkwMn/three.png" alt="Promoción 3"></div>
+        </div>
+        
+        <!-- Paginación -->
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <h1>Catálogo de Productos de Limpieza</h1>
+
+      <!-- Barra de búsqueda -->
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Buscar por nombre, categoría o código...">
+      </div>
+
+      <!-- Catálogo -->
+      <div class="catalog" id="productCatalog">
+        <!-- Aquí se generarán las tarjetas dinámicamente -->
+      </div>
+
+      <!-- Ventana del carrito -->
+      <div class="carrito-flotante" id="carritoFlotante">
+        <h2>Carrito de Compras</h2>
+        <div id="carritoProductos"></div>
+        <button onclick="cerrarCarrito()">Cerrar</button>
+        <button class="whatsapp-button" onclick="mostrarVendedores()">
+          <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+        </button>
+      </div>
+
+
+      <!-- Ventana de selección de vendedores para llamada -->
+      <div class="vendedores-flotante" id="vendedoresLlamadaFlotante">
+        <h2>Selecciona un vendedor para llamar</h2>
+        <div class="vendedor">
+          <p>Imelda Rojas</p>
+          <button onclick="iniciarLlamada('958368175')">
+            <i class="fas fa-phone"></i> Llamar a Imelda
+          </button>
+        </div>
+        <div class="vendedor">
+          <p>Maritza Mamani</p>
+          <button onclick="iniciarLlamada('941104511')">
+            <i class="fas fa-phone"></i> Llamar a Maritza
+          </button>
+        </div>
+        <div class="vendedor">
+          <p>Yaneth Mamani</p>
+          <button onclick="iniciarLlamada('915396307')">
+            <i class="fas fa-phone"></i> Llamar a Yaneth
+          </button>
+        </div>
+        <button onclick="cerrarLlamadaFlotante()">Cerrar</button>
+      </div>
+
+      <!-- Ventana de selección de vendedores para WhatsApp -->
+      <div class="vendedores-flotante" id="vendedoresFlotante">
+        <h2>Selecciona un Vendedor</h2>
+        <div class="vendedor">
+          <p>Imelda Rojas</p>
+          <button onclick="enviarPorWhatsApp('51958368175')">
+            <i class="fab fa-whatsapp"></i> Enviar a Imelda
+          </button>
+        </div>
+        <div class="vendedor">
+          <p>Maritza Mamani</p>
+          <button onclick="enviarPorWhatsApp('51941104511')">
+            <i class="fab fa-whatsapp"></i> Enviar a Maritza
+          </button>
+        </div>
+        <div class="vendedor">
+          <p>Yaneth Mamani</p>
+          <button onclick="enviarPorWhatsApp('51915396307')">
+            <i class="fab fa-whatsapp"></i> Enviar a Yaneth
+          </button>
+        </div>
+        <button onclick="cerrarVendedores()">Cerrar</button>
+      </div>
+
+
+
+    </section>
+  </div>
+
+
+
+  <footer>
+    <p>&copy; 2025 Productos de Limpieza. Todos los derechos reservados.</p>
+    <div class="footer-links">
+      <a href="https://facebook.com" target="_blank">Facebook</a> |
+      <a href="https://instagram.com" target="_blank">Instagram</a> |
+      <a href="https://twitter.com" target="_blank">Twitter</a>
+    </div>
+  </footer>
+
+</body>
+
+<script src="productos.js"></script>
+<script src="script.js"></script>
+
+</html>
