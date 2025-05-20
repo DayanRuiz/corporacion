@@ -67,9 +67,6 @@ nav {
   transition: all 0.3s ease;
 }
 
-
-
-
 .section {
   display: none;
   background: white;
@@ -143,10 +140,6 @@ footer {
 }
 
 
-
-
-
-
 @import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
 
 * {
@@ -156,7 +149,7 @@ footer {
 .courses-container {
   margin-top: 50px;
   background: #f9f9f9;
-  padding: 10px 20px;
+  
   max-width: 1200px;
   margin: 0 auto;
   border-radius: 20px;
@@ -366,6 +359,7 @@ body {
 }
 
 .container {
+  background: #fff;
   max-width: 100%;
   padding: 15px;
 }
