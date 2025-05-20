@@ -183,14 +183,29 @@ function addToCart(productName, productCode) {
 // Mostrar la notificación personalizada
 function showCustomAlert(message) {
   const alertBox = document.getElementById("customAlert");
-  alertBox.textContent = message;
+  alertBox.querySelector("p")?.remove(); // elimina mensaje anterior si existe
+
+  const messageElement = document.createElement("p");
+  messageElement.textContent = message;
+  alertBox.insertBefore(messageElement, alertBox.firstChild);
+
   alertBox.style.display = "block";
 
-  // Ocultar la notificación después de 5 segundos
+  // Ocultar automáticamente después de 5 segundos (opcional)
   setTimeout(() => {
-    alertBox.style.display = "none";
-  }, 5000); // 5000 ms = 5 segundos
+    if (alertBox.style.display === "block") {
+      alertBox.style.display = "none";
+    }
+  }, 5000);
 }
+// Cerrar la notificación personalizada
+
+function closeAlert() {
+  document.getElementById("customAlert").style.display = "none";
+}
+
+
+
 
 // Renderizar carrito
 function renderCarrito() {
