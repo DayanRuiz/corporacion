@@ -263,7 +263,7 @@ function cerrarLlamadaFlotante() {
 
 // Enviar por WhatsApp
 function enviarPorWhatsApp(numeroVendedor) {
-  const mensaje = `📦 Hola, he visto tu *Catálogo virtual* y me interesa hacerte unas consultas.
+  const mensaje = `📦 Hola, he visto tu *Catálogo virtual*.
 🙋‍♀️ ¿Podrías brindarme más detalles, por favor? ¡Gracias de antemano! 🙏
 Productos que me interesan:\n` +
     carrito.map(product => `${product.code} - ${product.name}`).join('\n');
