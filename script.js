@@ -120,7 +120,7 @@ function renderProducts(filter = "") {
 //CARGA LO FILTRADO 
 function renderPage(list) {
   const start = (page - 1) * pageSize;
-  const end   = page * pageSize;
+  const end = page * pageSize;
   const chunk = list.slice(start, end);
 
   chunk.forEach(product => {
@@ -263,7 +263,9 @@ function cerrarLlamadaFlotante() {
 
 // Enviar por WhatsApp
 function enviarPorWhatsApp(numeroVendedor) {
-  const mensaje = `Hola, me interesa saber sobre estos productos, vengo de tu catálogo virtual:\n` +
+  const mensaje = `📦 Hola, he visto tu *Catálogo virtual* y me interesa hacerte unas consultas.
+🙋‍♀️ ¿Podrías brindarme más detalles, por favor? ¡Gracias de antemano! 🙏
+Productos que me interesan:\n` +
     carrito.map(product => `${product.code} - ${product.name}`).join('\n');
   const url = `https://wa.me/${numeroVendedor}?text=${encodeURIComponent(mensaje)}`;
   window.open(url, "_blank");
