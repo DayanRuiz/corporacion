@@ -723,3 +723,15 @@ button {
 .alert-close-btn:hover {
   background-color: #1976D2;
 }
+
+
+
+/* pantalla inicio*/
+
+.container-inicio {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1100ff;
+}
